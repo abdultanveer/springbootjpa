@@ -34,8 +34,8 @@ public class StudentService {
 	}
 	
 	public Student getStudent(int id) {
-		Student student=  students.stream().filter(s -> s.getId() == id ).findFirst().get();
-		return student;
+		return studentRepository.findById(id).get();
+		
 	}
 
 	public void addStudent(Student student) {
@@ -46,17 +46,12 @@ public class StudentService {
 	}
 
 	public void updateStudent(Student student, int id) {
-		for(int i = 0; i< students.size(); i++) {
-			Student s = students.get(0);
-			if(s.getId() == id) {
-				students.set(id, student);
-				return;
-			}
-		}
+		studentRepository.save(student);
 	}
 
 	public void removeStudent(int id) {
-		students.removeIf(s -> s.getId() == id);
+		studentRepository.deleteById(id);
+		//students.removeIf(s -> s.getId() == id);
 	}
 
 }
